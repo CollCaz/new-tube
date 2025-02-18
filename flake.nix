@@ -15,6 +15,7 @@
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            openssl
             nodejs
             bun
 
