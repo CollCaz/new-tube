@@ -1,10 +1,24 @@
-import Image from "next/image";
+import { HomeView } from "@/modules/home/ui/views/home-view";
+import { HydrateClient, trpc } from "@/trpc/server";
 
-export default function Home() {
+export const dynamic = "force-dynamic"
+
+interface PageProps {
+  searchParams: Promise<{
+    categoryId?: string;
+  }>
+}
+
+const Page = async ({ searchParams }: PageProps) => {
+  const { categoryId } = await searchParams;
+  void trpc.categories.getMany.prefetch()
   return (
     <div>
-      <Image src="/logo.svg" height={50} width={50} alt="Logo" />
-      <p className="font-semibold text-xl tracking-tight"> NewTube </p>
+      <HydrateClient>
+        <HomeView />
+      </HydrateClient>
     </div>
   );
 }
+
+export default Page;
