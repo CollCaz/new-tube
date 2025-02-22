@@ -12,6 +12,7 @@
     "@clerk/nextjs": "6.10.3",
     "@hookform/resolvers": "^4.1.0",
     "@mux/mux-node": "9.0.1",
+    "@mux/mux-player-react": "3.2.4",
     "@mux/mux-uploader-react": "1.1.1",
     "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-accordion": "^1.2.3",
@@ -45,6 +46,7 @@
     "@trpc/client": "11.0.0-rc.730",
     "@trpc/react-query": "11.0.0-rc.730",
     "@trpc/server": "11.0.0-rc.730",
+    "@uploadthing/react": "7.1.5",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
     "clsx": "^2.1.1",
@@ -52,6 +54,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "16.4.7",
     "drizzle-orm": "0.39.0",
+    "drizzle-zod": "0.7.0",
     "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.2",
     "localtunnel": "^2.0.2",
@@ -71,6 +74,7 @@
     "svix": "1.45.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "uploadthing": "7.4.4",
     "vaul": "^1.1.2",
     "zod": "^3.24.2"
   },
@@ -86,5 +90,8 @@
     "tailwindcss": "^3.4.1",
     "tsx": "4.19.2",
     "typescript": "^5"
-  }
+  },
+  "trustedDependencies": [
+    "@clerk/shared"
+  ]
 }

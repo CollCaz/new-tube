@@ -1,11 +1,64 @@
 "use client";
 import { InfiniteScroll } from "@/components/infinite-scroll";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { snakeCaseToTitle } from "@/lib/utils";
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail";
 import { trpc } from "@/trpc/client"
+import { format } from "date-fns";
+import { Globe2Icon, LockIcon } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-export const VideoSection = () => {
+export const VideosSection = () => {
+	return (
+		<Suspense fallback={<VideosSectionSkeleton />} >
+			<ErrorBoundary fallback={<p>Error</p>}>
+				<VideosSectionSuspense />
+			</ErrorBoundary>
+		</Suspense>
+	)
+}
+
+export const VideosSectionSkeleton = () => {
+	return (
+		<>
+			<div className="border-y">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead className="pl-6 w-[510px]">Video</TableHead>
+							<TableHead>Visibility</TableHead>
+							<TableHead>Status</TableHead>
+							<TableHead>Date</TableHead>
+							<TableHead className="text-right">Views</TableHead>
+							<TableHead className="text-right">Comments</TableHead>
+							<TableHead className="text-right pr-6">Likes</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{Array.from({ length: 5 }).map((_, index) => (
+							<TableRow key={index}>
+								<TableCell className="pl-6">
+									<div className="flex items-center gap-4">
+										<Skeleton className="h-20 w-36" />
+										<div className="flex flex-col gap-2">
+											<Skeleton className="h-4 w-[100px]" />
+											<Skeleton className="h-3 w-[150px]" />
+										</div>
+									</div>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
+		</>
+	)
+}
+
+export const VideosSectionSuspense = () => {
 	const [videos, query] = trpc.studio.getMany.useSuspenseInfiniteQuery({
 		limit: 5,
 	}, {
@@ -34,18 +87,34 @@ export const VideoSection = () => {
 									<TableCell>
 										<div className="flex items-center gap-4">
 											<div className="relative aspect-video w-36 shrink-0">
-												<VideoThumbnail />
+												<VideoThumbnail
+													title={video.title}
+													duration={video.duration ?? 0}
+													imageUrl={video.thumbnailUrl}
+													previewUrl={video.previewUrl}
+												/>
+											</div>
+											<div className="flex flex-col overflow-hidden gap-y-1">
+												<span className="text-sm line-clamp-1">{video.title}</span>
+												<span className="text-xm text-muted-foreground line-clamp-1">
+													{video.title || "No description"}
+												</span>
 											</div>
 										</div>
 									</TableCell>
 									<TableCell>
-										visibility
+										<div className="flex items-center gap-x-2">
+											{video.visibility == "public" ? <Globe2Icon size={20} /> : <LockIcon size={20} />}
+											{video.visibility}
+										</div>
 									</TableCell>
 									<TableCell>
-										status
+										<div className="flex items-center">
+											{snakeCaseToTitle(video.muxStatus ?? "error")}
+										</div>
 									</TableCell>
-									<TableCell>
-										date
+									<TableCell className="text-sm truncate">
+										{format(new Date(video.createdAt), "d MMM yyyy")}
 									</TableCell>
 									<TableCell>
 										views

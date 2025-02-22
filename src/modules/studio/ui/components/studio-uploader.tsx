@@ -11,7 +11,6 @@ const UPLOADER_ID = 'video-uploader'
 
 export const StudioUploader = ({
 	endpoint,
-	onSuccess
 }: StudioUploaderProps) => {
 	return (
 		<div>
@@ -31,12 +30,12 @@ export const StudioUploader = ({
 							Your videos will be private until you publish them
 						</p>
 					</div>
-					<MuxUploaderFileSelect muxUploader={UPLOADER_ID}>
-						<Button type='button' className='rounded-full'>
-							Select files
-						</Button>
-					</MuxUploaderFileSelect>
 				</div>
+				<MuxUploaderFileSelect muxUploader={UPLOADER_ID}>
+					<Button type='button' className='rounded-full'>
+						Select files
+					</Button>
+				</MuxUploaderFileSelect>
 				<span slot="seperator" className='hidden' />
 				<MuxUploaderStatus
 					muxUploader={UPLOADER_ID}
