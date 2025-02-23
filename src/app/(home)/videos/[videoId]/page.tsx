@@ -1,10 +1,8 @@
-import { VideoView } from "@/modules/videos/ui/components/video-view";
+import { VideoView } from "@/modules/videos/ui/views/video-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 interface PageProps {
-	params: Promise<{
-		videoId: string;
-	}>
+	params: Promise<{ videoId: string }>
 }
 
 const Page = async ({ params }: PageProps) => {
