@@ -41,6 +41,7 @@ const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
 						<CommentItem
 							key={comment.id}
 							comment={comment}
+							variant="comment"
 						/>
 					))}
 					<InfiniteScroll

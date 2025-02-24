@@ -12,9 +12,13 @@ import { cn } from "@/lib/utils"
 
 interface CommentItemProps {
 	comment: CommentGetManyOutput["items"][number]
+	variant?: "reply" | "comment",
 }
 
-export const CommentItem = ({ comment }: CommentItemProps) => {
+export const CommentItem = ({
+	comment,
+	variant,
+}: CommentItemProps) => {
 	const { userId } = useAuth();
 	const clerk = useClerk();
 	const utils = trpc.useUtils();
@@ -113,6 +117,16 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 							{comment.disLike}
 						</span>
 					</div>
+					{variant === "comment" && (
+						<Button
+							variant="ghost"
+							size="sm"
+							className="h-8"
+							onClick={() => { }}
+						>
+							Reply
+						</Button>
+					)}
 				</div>
 			</div>
 			<DropdownMenu modal={false}>

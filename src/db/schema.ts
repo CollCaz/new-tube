@@ -1,10 +1,11 @@
-import { text, pgTable, timestamp, uuid, uniqueIndex, integer, pgEnum, primaryKey } from "drizzle-orm/pg-core";
+import { text, pgTable, timestamp, uuid, uniqueIndex, integer, pgEnum, primaryKey, foreignKey } from "drizzle-orm/pg-core";
 
 import {
 	createInsertSchema,
 	createSelectSchema,
 	createUpdateSchema
 } from "drizzle-zod"
+import { comment } from "postcss";
 
 export const users = pgTable("users", {
 	id: uuid("id").primaryKey().defaultRandom(),
@@ -76,10 +77,17 @@ export const comments = pgTable("comments", {
 	id: uuid("id").primaryKey().defaultRandom(),
 	userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
 	videoId: uuid("video_id").references(() => videos.id, { onDelete: "cascade" }).notNull(),
+	parentId: uuid("parent_id"),
 	value: text("value").notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at").defaultNow().notNull(),
-})
+}, (t) => [
+	foreignKey({
+		name: "comments_parent_fk",
+		columns: [t.parentId],
+		foreignColumns: [t.id],
+	}).onDelete("cascade")
+])
 
 export const commentsInsertSchema = createInsertSchema(comments)
 export const commentsUpdateSchema = createUpdateSchema(comments)
