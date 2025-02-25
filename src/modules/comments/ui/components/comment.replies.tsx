@@ -2,6 +2,7 @@ import { trpc } from "@/trpc/client";
 import { CornerDownRightIcon, Loader2Icon } from "lucide-react";
 import { CommentItem } from "./comment-item";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_LIMIT } from "../../../../../constants";
 
 interface CommentRepliesProps {
 	parentId: string;
@@ -19,7 +20,7 @@ export const CommentReplies = ({
 		hasNextPage,
 		isFetchingNextPage,
 	} = trpc.comments.getMany.useInfiniteQuery({
-		limit: 10,
+		limit: DEFAULT_LIMIT,
 		videoId,
 		parentId
 	}, {

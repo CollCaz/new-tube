@@ -22,6 +22,7 @@ import Image from "next/image";
 import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { CopyCheck, CopyIcon, Globe2Icon, ImagePlusIcon, LockIcon, MoreVerticalIcon, RotateCcwIcon, SparklesIcon, TrashIcon } from "lucide-react";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
+import { APP_URL } from "../../../../../constants";
 
 interface FormSectionProps {
 	videoId: string;
@@ -99,7 +100,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 		update.mutate(data);
 	}
 
-	const fullUrl = `${process.env.VERVEL_URL || "http://localhost:300"}/videos/${videoId}`
+	const fullUrl = `${APP_URL}/videos/${videoId}`
 
 	const [isCopied, setIsCopied] = useState(false);
 

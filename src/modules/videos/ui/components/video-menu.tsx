@@ -3,6 +3,7 @@ import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@/component
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
 import { ListPlusIcon, MoreVerticalIcon, ShareIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
+import { APP_URL } from "../../../../../constants";
 
 interface VideoMenuProps {
 	videoId: string;
@@ -16,7 +17,7 @@ export const VideoMenu = ({
 	onRemove,
 }: VideoMenuProps) => {
 	const onShare = () => {
-		const fullUrl = `${process.env.VERVEL_URL || "http://localhost:300"}/videos/${videoId}`
+		const fullUrl = `${APP_URL}/videos/${videoId}`
 		navigator.clipboard.writeText(fullUrl)
 		toast.success("Link copied to the clipboard");
 	}

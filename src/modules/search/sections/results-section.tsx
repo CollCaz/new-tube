@@ -4,6 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { VideoGridCard } from "@/modules/videos/ui/components/video-grid-card";
 import { VideoRowCard } from "@/modules/videos/ui/components/video-row-card";
 import { trpc } from "@/trpc/client";
+import { DEFAULT_LIMIT } from "../../../../constants";
 
 interface ResultsSectionProps {
 	query: string | undefined;
@@ -18,7 +19,7 @@ export const ResultsSection = ({
 	const [results, resultQuery] = trpc.search.getMany.useSuspenseInfiniteQuery({
 		query,
 		categoryId,
-		limit: 5,
+		limit: DEFAULT_LIMIT,
 	}, {
 		getNextPageParam: (lastPage) => lastPage.nextCursor
 	})

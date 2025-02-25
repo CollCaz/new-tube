@@ -4,6 +4,7 @@ import { trpc } from "@/trpc/client"
 import { VideoRowCard } from "../components/video-row-card";
 import { VideoGridCard } from "../components/video-grid-card";
 import { InfiniteScroll } from "@/components/infinite-scroll";
+import { DEFAULT_LIMIT } from "../../../../../constants";
 
 interface SuggestionsSectionProps {
 	videoId: string;
@@ -16,7 +17,7 @@ export const SuggestionsSection = ({
 }: SuggestionsSectionProps) => {
 	const [suggestions, query] = trpc.suggestions.getMany.useSuspenseInfiniteQuery({
 		videoId,
-		limit: 5,
+		limit: DEFAULT_LIMIT,
 	}, {
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
 	});

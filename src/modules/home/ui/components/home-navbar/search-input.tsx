@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SearchIcon, XIcon } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { useState } from "react"
+import { APP_URL } from "../../../../../../constants";
 
 export const SearchInput = () => {
 	const router = useRouter();
@@ -11,7 +12,7 @@ export const SearchInput = () => {
 	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const url = new URL("/search", window.location.origin)
+		const url = new URL("/search", APP_URL)
 		const newQuery = value.trim()
 
 		url.searchParams.set("query", encodeURIComponent(newQuery))

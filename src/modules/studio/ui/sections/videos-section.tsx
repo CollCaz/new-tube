@@ -10,6 +10,7 @@ import { Globe2Icon, LockIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { DEFAULT_LIMIT } from "../../../../../constants";
 
 export const VideosSection = () => {
 	return (
@@ -60,7 +61,7 @@ export const VideosSectionSkeleton = () => {
 
 export const VideosSectionSuspense = () => {
 	const [videos, query] = trpc.studio.getMany.useSuspenseInfiniteQuery({
-		limit: 5,
+		limit: DEFAULT_LIMIT,
 	}, {
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
 	})

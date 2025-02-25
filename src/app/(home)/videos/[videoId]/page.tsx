@@ -1,5 +1,6 @@
 import { VideoView } from "@/modules/videos/ui/views/video-view";
 import { HydrateClient, trpc } from "@/trpc/server";
+import { DEFAULT_LIMIT } from "../../../../../constants";
 
 interface PageProps {
 	params: Promise<{ videoId: string }>
@@ -8,7 +9,7 @@ interface PageProps {
 const Page = async ({ params }: PageProps) => {
 	const { videoId } = await params
 	void trpc.videos.getOne.prefetch({ id: videoId })
-	void trpc.comments.getMany.prefetchInfinite({ videoId, limit: 10 })
+	void trpc.comments.getMany.prefetchInfinite({ videoId, limit: DEFAULT_LIMIT })
 	void trpc.suggestions.getMany.prefetchInfinite({ videoId, limit: 10 })
 
 	return (

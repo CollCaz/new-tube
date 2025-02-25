@@ -6,6 +6,7 @@ import { CommentItem } from "@/modules/comments/ui/components/comment-item";
 import { trpc } from "@/trpc/client"
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { DEFAULT_LIMIT } from "../../../../../constants";
 
 interface CommentsSectionProps {
 	videoId: string;
@@ -24,7 +25,7 @@ export const CommentsSection = (props: CommentsSectionProps) => {
 const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
 	const [comments, query] = trpc.comments.getMany.useSuspenseInfiniteQuery({
 		videoId,
-		limit: 10,
+		limit: DEFAULT_LIMIT,
 	}, {
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
 	});
