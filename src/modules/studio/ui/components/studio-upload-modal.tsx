@@ -36,7 +36,7 @@ export const StudioUploadModal = () => {
 			>
 				{
 					create.data?.url
-						? <StudioUploader endpoint={create.data?.url} onSuccess={onSuccess} />
+						? <StudioUploader endpoint={create.data?.url} onSuccess={() => onSuccess()} />
 						: <Loader2Icon />
 				}
 			</ResponsiveModal>

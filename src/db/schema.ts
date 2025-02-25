@@ -5,7 +5,6 @@ import {
 	createSelectSchema,
 	createUpdateSchema
 } from "drizzle-zod"
-import { comment } from "postcss";
 
 export const users = pgTable("users", {
 	id: uuid("id").primaryKey().defaultRandom(),

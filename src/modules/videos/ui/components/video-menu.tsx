@@ -12,7 +12,7 @@ interface VideoMenuProps {
 
 export const VideoMenu = ({
 	videoId,
-	variant,
+	variant = "ghost",
 	onRemove,
 }: VideoMenuProps) => {
 	const onShare = () => {
@@ -21,7 +21,7 @@ export const VideoMenu = ({
 		toast.success("Link copied to the clipboard");
 	}
 	return (
-		<DropdownMenu>
+		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger asChild>
 				<Button variant={variant} size="icon" className="rounded-full">
 					<MoreVerticalIcon />
