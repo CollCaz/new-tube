@@ -94,6 +94,27 @@ export const commentsSelectSchema = createSelectSchema(comments)
 
 export const reactionType = pgEnum("reaction_type", ["like", "dislike"])
 
+export const playlists = pgTable("playlists", {
+	id: uuid("id").primaryKey().defaultRandom(),
+	name: text("name").notNull(),
+	description: text("description"),
+	userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+export const playlistVideos = pgTable("playlist_videos", {
+	playlistId: uuid("playlist_id").references(() => playlists.id, { onDelete: "cascade" }).notNull(),
+	videoId: uuid("video_id").references(() => videos.id, { onDelete: "cascade" }).notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (t) => [
+	primaryKey({
+		name: "playlist_videos_pk",
+		columns: [t.playlistId, t.videoId]
+	})
+])
+
 export const commentReactions = pgTable("comment_reactions", {
 	commentId: uuid("comment_id").references(() => comments.id, { onDelete: "cascade" }).notNull(),
 	userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
