@@ -18,6 +18,7 @@
             openssl
             nodejs
             bun
+            windsurf
 
             nodePackages.typescript
             nodePackages.typescript-language-server

@@ -21,9 +21,11 @@ export const useSubscription = ({
       toast.success("Subscribed!");
       if (fromVideoId) {
         utils.videos.getOne.invalidate({ id: fromVideoId });
+        utils.videos.getManySubscribed.invalidate();
       }
     },
     onError: (error) => {
+      toast.error(error.message)
       if (error.data?.code === "UNAUTHORIZED") {
         clerk.openSignIn();
       }
@@ -35,9 +37,11 @@ export const useSubscription = ({
       toast.success("Unsubscribed!");
       if (fromVideoId) {
         utils.videos.getOne.invalidate({ id: fromVideoId });
+        utils.videos.getManySubscribed.invalidate();
       }
     },
     onError: (error) => {
+      toast.error(error.message)
       if (error.data?.code === "UNAUTHORIZED") {
         clerk.openSignIn();
       }
