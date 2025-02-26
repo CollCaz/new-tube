@@ -1,8 +1,9 @@
 "use client";
 
 import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { FlameIcon, HistoryIcon, ListVideo, PlaySquareIcon } from "lucide-react";
+import { HistoryIcon, ListVideo, PlaySquareIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const items = [
 	{
@@ -13,18 +14,20 @@ const items = [
 	},
 	{
 		title: "Liked Videos",
-		url: "/feed/subscriptions",
+		url: "/playlists/liked",
 		icon: PlaySquareIcon,
 		auth: true,
 	},
 	{
 		title: "All Playlists",
-		url: "/playlists/trending",
+		url: "/playlists/all",
 		icon: ListVideo,
+		auth: true,
 	},
 ]
 
 export const PersonalSection = () => {
+	const pathname = usePathname();
 	return (
 		<SidebarGroup>
 			<SidebarGroupContent>
@@ -34,7 +37,7 @@ export const PersonalSection = () => {
 							<SidebarMenuButton
 								tooltip={item.title}
 								asChild
-								isActive={false}
+								isActive={pathname === item.url}
 								onClick={() => { }}
 							>
 								<Link href={item.url} className="flex items-center gap-4">

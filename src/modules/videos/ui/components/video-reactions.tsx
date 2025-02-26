@@ -26,6 +26,7 @@ export const VideoReactions = ({
 	const like = trpc.videoReactions.like.useMutation({
 		onSuccess: () => {
 			utils.videos.getOne.invalidate();
+			utils.playlists.getLiked.invalidate();
 		},
 		onError: (error) => {
 			if (error.data?.code === "UNAUTHORIZED") {
@@ -39,6 +40,7 @@ export const VideoReactions = ({
 	const dislike = trpc.videoReactions.disLike.useMutation({
 		onSuccess: () => {
 			utils.videos.getOne.invalidate();
+			utils.playlists.getLiked.invalidate();
 		},
 		onError: (error) => {
 			if (error.data?.code === "UNAUTHORIZED") {
