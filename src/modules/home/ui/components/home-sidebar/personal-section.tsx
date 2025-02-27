@@ -20,7 +20,7 @@ const items = [
 	},
 	{
 		title: "All Playlists",
-		url: "/playlists/all",
+		url: "/playlists",
 		icon: ListVideo,
 		auth: true,
 	},
